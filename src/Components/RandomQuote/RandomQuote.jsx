@@ -40,11 +40,6 @@ export const RandomQuote = () => {
               alt="Reload"
               className="resized-image"
             />
-            <img
-              src={ig_icon}
-              alt="Instagram"
-              className="resized-image"
-            />
           </div>
         </div>
       </div>
