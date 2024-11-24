@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './RandomQuote.css';
-import ig_icon from '../Assets/insta.png';
 import reload from '../Assets/reload.png';
+import twitter_icon from '../Assets/twitter-dark.svg'
 
 export const RandomQuote = () => {
   const [quote, setQuote] = useState({
@@ -31,6 +31,12 @@ export const RandomQuote = () => {
     speechSynthesis.speak(utterance);
   };
 
+  const twitter = () => {
+    const tweetText = encodeURIComponent(`${quote.text} - ${quote.author || "Unknown"}`);
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+    window.open(tweetUrl, "_blank");
+  };
+  
   return (
     <div className="container">
       <div className="quote">{quote.text}</div>
@@ -44,8 +50,16 @@ export const RandomQuote = () => {
               onClick={fetchQuote}
               alt="Reload"
               className="resized-image"
+              title="Generate quote"
             />
-            <button onClick={speakQuote} className="speak-button">🔊 Speak</button>
+            <button onClick={speakQuote} className="speak-button" title="Hear quote">🔊 Speak</button>
+            <img
+              src={twitter_icon}
+              onClick={()=>{twitter()}}
+              alt="twitter"
+              className="resized-image"
+              title="Share on Twitter"
+            />
           </div>
         </div>
       </div>
