@@ -4,13 +4,12 @@ import ig_icon from '../Assets/insta.png';
 import reload from '../Assets/reload.png';
 
 export const RandomQuote = () => {
-  // State for storing the current quote
   const [quote, setQuote] = useState({
     text: "Difficulties increase the nearer we get to the goal.",
     author: "Johann Wolfgang von Goethe",
   });
 
-  // Function to fetch a random quote
+  // Fetch a random quote
   const fetchQuote = async () => {
     try {
       const response = await fetch("https://quoteslate.vercel.app/api/quotes/random");
@@ -21,10 +20,16 @@ export const RandomQuote = () => {
     }
   };
 
-  // Load a quote when the component mounts
+  // Load initial quote on mount
   useEffect(() => {
     fetchQuote();
   }, []);
+
+  // Text-to-Speech function
+  const speakQuote = () => {
+    const utterance = new SpeechSynthesisUtterance(quote.text + " by " + (quote.author || "Unknown"));
+    speechSynthesis.speak(utterance);
+  };
 
   return (
     <div className="container">
@@ -40,6 +45,7 @@ export const RandomQuote = () => {
               alt="Reload"
               className="resized-image"
             />
+            <button onClick={speakQuote} className="speak-button">🔊 Speak</button>
           </div>
         </div>
       </div>
